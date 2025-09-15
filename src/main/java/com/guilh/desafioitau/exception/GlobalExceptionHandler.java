@@ -1,4 +1,4 @@
-package exception;
+package com.guilh.desafioitau.exception;
 
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;

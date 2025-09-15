@@ -1,4 +1,4 @@
-package model;
+package com.guilh.desafioitau.model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Past;

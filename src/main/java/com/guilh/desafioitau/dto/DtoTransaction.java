@@ -1,7 +1,9 @@
-package dto;
+package com.guilh.desafioitau.dto;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -13,10 +15,10 @@ import java.time.OffsetDateTime;
 @Setter
 public class DtoTransaction {
     @NonNull
-    @Min(0)
+    @DecimalMin(value = "0.0")
     private BigDecimal valor;
 
     @NonNull
-    @Past
+    @PastOrPresent
     private OffsetDateTime dataHora;
 }

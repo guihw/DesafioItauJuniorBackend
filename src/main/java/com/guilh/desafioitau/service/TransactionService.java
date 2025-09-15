@@ -1,17 +1,15 @@
-package service;
+package com.guilh.desafioitau.service;
 
-import dto.DtoTransaction;
-import model.TransactionModel;
-import model.TransactionStorage;
+import com.guilh.desafioitau.dto.DtoTransaction;
+import com.guilh.desafioitau.model.TransactionModel;
+import com.guilh.desafioitau.model.TransactionStorage;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class TransactionService {
@@ -34,20 +32,29 @@ public class TransactionService {
     }
 
     public String getStatistics(){
+        int segundos = 60;
          List<TransactionModel> transacoesFiltradas = transactionStorage
                  .findAll()
                  .stream()
-                 .filter(transactionModel -> transactionModel.getDataHora().isBefore(OffsetDateTime.now().minusMinutes(1)))
+                 .filter(transactionModel -> transactionModel.getDataHora().isAfter(OffsetDateTime.now().minusMinutes(segundos/60)))
                  .collect(Collectors.toList());
 
          if(transacoesFiltradas.isEmpty()){
-             return "\"count\": 10,\n" +
-                     "    \"sum\": 1234.56,\n" +
-                     "    \"avg\": 123.456,\n" +
-                     "    \"min\": 12.34,\n" +
-                     "    \"max\": 123.56";
+             return "{\n" +
+                     "    \"count\": 0,\n" +
+                     "    \"sum\": 0.00,\n" +
+                     "    \"avg\": 0.00,\n" +
+                     "    \"min\": 0.00,\n" +
+                     "    \"max\": 0.00\n" +
+                     "}";
          }
-
-         return transactionStorage.stats(transacoesFiltradas).toString();
+        DoubleSummaryStatistics stats = transactionStorage.stats(transacoesFiltradas);
+        return String.format("{\n" +
+                "    \"count\": %d,\n" +
+                "    \"sum\": %.2f,\n" +
+                "    \"avg\": %.2f,\n" +
+                "    \"min\": %.2f,\n" +
+                "    \"max\": %.2f\n" +
+                "}", stats.getCount(), stats.getSum(), stats.getAverage(), stats.getMin(), stats.getMax());
     }
 }

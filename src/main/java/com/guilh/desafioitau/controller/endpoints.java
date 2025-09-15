@@ -1,15 +1,11 @@
-package controller;
+package com.guilh.desafioitau.controller;
 
-import dto.DtoTransaction;
+import com.guilh.desafioitau.dto.DtoTransaction;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.TransactionService;
-
-import java.math.BigDecimal;
-import java.net.http.HttpResponse;
-import java.time.OffsetDateTime;
+import com.guilh.desafioitau.service.TransactionService;
 
 @RestController
 public class endpoints {

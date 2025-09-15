@@ -1,11 +1,14 @@
-package model;
+package com.guilh.desafioitau.model;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
-
+@Repository
 public class TransactionStorage {
-    private ArrayList<TransactionModel> transacoes;
+    private ArrayList<TransactionModel> transacoes = new ArrayList<>();
 
     public ArrayList<TransactionModel> save(TransactionModel transacao){
         transacoes.add(transacao);
